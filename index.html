@@ -199,12 +199,11 @@
                     ${keys.map(k => {
                         let cellValue = row[k] || '-';
 
-                        // LOGIKA LINK LANGSUNG:
-                        // Jika kolom adalah LINK, tampilkan sebagai teks URL aktif
+                        // MENGUBAH KOLOM LINK MENJADI BENTUK TOMBOL
                         if (k.toUpperCase() === 'LINK') {
                             return `<td class="p-3 text-[11px] whitespace-nowrap">
-                                <a href="${cellValue}" target="_blank" class="text-blue-600 hover:text-blue-800 underline break-all max-w-[200px] block truncate">
-                                    ${cellValue}
+                                <a href="${cellValue}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-3 py-1.5 rounded-lg text-[10px] shadow-sm transition-colors text-center">
+                                    Buka Link
                                 </a>
                             </td>`;
                         }
