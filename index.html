@@ -190,11 +190,31 @@
                 return;
             }
 
-            // Menampilkan SELURUH kolom (tanpa slice) dan menambahkan whitespace-nowrap
-            const keys = Object.keys(filteredData[0]);
+            const keys = Object.keys(filteredData[0]); 
+            
             document.getElementById('tableHeader').innerHTML = `<tr>${keys.map(k => `<th class="p-3 uppercase text-[11px] whitespace-nowrap">${k.replace(/_/g, ' ')}</th>`).join('')}</tr>`;
             
-            tbody.innerHTML = pageData.map(row => `<tr class="hover:bg-slate-50 transition-colors">${keys.map(k => `<td class="p-3 text-[11px] whitespace-nowrap">${row[k] || '-'}</td>`).join('')}</tr>`).join('');
+            tbody.innerHTML = pageData.map(row => {
+                return `<tr class="hover:bg-slate-50 transition-colors">
+                    ${keys.map(k => {
+                        const cellValue = row[k] || '-';
+                        
+                        // LOGIKA TOMBOL LINK: 
+                        // Mengecek apakah kolom bernama "LINK" dan nilainya mengandung tag HTML <a>
+                        if (k.toUpperCase() === 'LINK' && cellValue.includes('<a href=')) {
+                            // Membersihkan string agar bisa dirender sebagai link aktif
+                            const cleanLink = cellValue.replace(/target\s*=\s*['"]_blank['"]/i, 'target="_blank"');
+                            return `<td class="p-3 text-[11px] whitespace-nowrap">
+                                <div class="inline-block [&>a]:bg-blue-600 [&>a]:text-white [&>a]:px-3 [&>a]:py-1.5 [&>a]:rounded-lg [&>a]:text-[10px] [&>a]:font-bold [&>a]:shadow-sm [&>a]:hover:bg-blue-700 [&>a]:transition-colors">
+                                    ${cleanLink}
+                                </div>
+                            </td>`;
+                        }
+                        
+                        return `<td class="p-3 text-[11px] whitespace-nowrap">${cellValue}</td>`;
+                    }).join('')}
+                </tr>`;
+            }).join('');
             
             const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
             document.getElementById('pagination').innerHTML = `
