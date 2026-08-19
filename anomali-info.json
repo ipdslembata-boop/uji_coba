@@ -1,0 +1,15 @@
+{
+  "sosek": {
+    "AAK1": "Penjelasan AAK1: Anomali ini mendeteksi ketidaksesuaian umur anggota rumah tangga dengan status perkawinan atau hubungan dalam keluarga.",
+    "AAK2": "Penjelasan AAK2: Anomali ini mendeteksi duplikasi atau kejanggalan pada isian dokumen karakteristik anggota rumah tangga."
+  },
+  "umum": {
+    "UMUM1": "Penjelasan Umum 1: Mendeteksi anomali pada cakupan wilayah pendataan."
+  },
+  "neraca": {
+    "NERACA1": "Penjelasan Neraca 1: Mendeteksi ketidakwajaran data produksi atau pengeluaran."
+  },
+  "kbli": {
+    "KBLI1": "Penjelasan KBLI 1: Mendeteksi kesalahan penulisan kode Klasifikasi Baku Lapangan Usaha Indonesia."
+  }
+}
