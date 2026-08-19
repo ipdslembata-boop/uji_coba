@@ -40,6 +40,15 @@
                     <select id="filterDesa" onchange="applyFilters()" class="text-xs bg-white border border-slate-300 rounded-xl p-2.5 outline-none shadow-xs"><option value="">(dropdown) Desa</option></select>
                     <input type="text" id="globalSearch" oninput="applyFilters()" placeholder="Global Search..." class="text-xs bg-white border border-slate-300 rounded-xl p-2.5 outline-none shadow-xs">
                 </div>
+
+                <!-- KOTAK PENJELASAN ANOMALI (BARU) -->
+                <div class="bg-[#bfdbfe] border-2 border-white rounded-2xl p-4 shadow-sm flex flex-col gap-2">
+                    <div class="text-xs font-bold text-slate-700 text-center">Penjelasan Anomali</div>
+                    <div id="anomalyExplanation" class="text-[11px] text-slate-600 bg-white/80 p-3 rounded-xl border border-white min-h-[100px]">
+                        Memuat penjelasan anomali...
+                    </div>
+                </div>
+
                 <div class="bg-[#bfdbfe] border-2 border-white rounded-2xl p-4 text-center shadow-sm"><div class="text-xs font-semibold text-slate-700">Total anomali</div><div id="kpiTotal" class="text-2xl font-bold text-blue-900 mt-1">0</div></div>
                 <div class="bg-[#bfdbfe] border-2 border-white rounded-2xl p-4 text-center shadow-sm"><div class="text-xs font-semibold text-slate-700">Jumlah anomali yang sudah ditindak</div><div id="kpiResolved" class="text-2xl font-bold text-emerald-700 mt-1">0</div></div>
                 <div class="bg-[#bfdbfe] border-2 border-white rounded-2xl p-4 text-center shadow-sm"><div class="text-xs font-semibold text-slate-700">Jumlah anomali yang tersisa</div><div id="kpiOpen" class="text-2xl font-bold text-amber-700 mt-1">0</div></div>
@@ -89,6 +98,7 @@
         let kecChartInstance = null, statChartInstance = null;
         let currentCategory = 'sosek';
         let currentSheetName = '';
+        let anomalyExplanationsData = {}; // Variabel penampung data JSON penjelasan
 
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', (e) => {
@@ -99,7 +109,20 @@
             });
         });
 
-        function initCategory(cat) {
+        async function initCategory(cat) {
+            currentCategory = cat;
+            const explanationBox = document.getElementById('anomalyExplanation');
+
+            // Tarik data penjelasan dari file JSON jika belum dimuat
+            if (Object.keys(anomalyExplanationsData).length === 0) {
+                try {
+                    const response = await fetch('anomali-info.json');
+                    anomalyExplanationsData = await response.json();
+                } catch (e) {
+                    console.error("Gagal memuat file JSON penjelasan:", e);
+                }
+            }
+
             const sheets = CONFIG[cat];
             const sheetKeys = Object.keys(sheets);
             const tabsContainer = document.getElementById('sheetTabs');
@@ -107,6 +130,7 @@
 
             if (sheetKeys.length === 0 || !sheets[sheetKeys[0]]) {
                 document.getElementById('tableBody').innerHTML = `<tr><td class="p-4 text-center text-slate-400">Belum ada URL sheet untuk kategori ini.</td></tr>`;
+                explanationBox.textContent = 'Tidak ada penjelasan tersedia untuk kategori ini.';
                 return;
             }
 
@@ -114,15 +138,26 @@
                 const btn = document.createElement('button');
                 btn.textContent = sheetName;
                 btn.className = `px-2.5 py-1 rounded text-[11px] transition-colors cursor-pointer ${index === 0 ? 'bg-blue-700 text-white' : 'bg-blue-500/50 hover:bg-blue-600 text-white'}`;
+                
                 btn.onclick = () => {
                     document.querySelectorAll('#sheetTabs button').forEach(b => b.className = 'px-2.5 py-1 rounded text-[11px] transition-colors cursor-pointer bg-blue-500/50 hover:bg-blue-600 text-white');
                     btn.className = 'px-2.5 py-1 rounded text-[11px] transition-colors cursor-pointer bg-blue-700 text-white';
+                    
+                    // Tarik teks penjelasan berdasarkan kategori aktif dan nama sheet dari JSON
+                    const textInfo = anomalyExplanationsData[currentCategory]?.[sheetName] || `Penjelasan untuk anomali ${sheetName} belum ditambahkan di file JSON.`;
+                    explanationBox.textContent = textInfo;
+
                     loadSheetData(sheets[sheetName], sheetName);
                 };
                 tabsContainer.appendChild(btn);
             });
 
-            loadSheetData(sheets[sheetKeys[0]], sheetKeys[0]);
+            // Set teks penjelasan awal untuk tab pertama yang aktif
+            const firstSheet = sheetKeys[0];
+            const initialText = anomalyExplanationsData[cat]?.[firstSheet] || `Penjelasan untuk anomali ${firstSheet} belum ditambahkan di file JSON.`;
+            explanationBox.textContent = initialText;
+
+            loadSheetData(sheets[firstSheet], firstSheet);
         }
 
         async function loadSheetData(url, sheetName) {
