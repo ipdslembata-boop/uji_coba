@@ -199,15 +199,16 @@
                     ${keys.map(k => {
                         let cellValue = row[k] || '-';
 
-                        // LOGIKA BARU: Jika kolom adalah 'LINK', kita paksa ekstrak URL dari teks
+                        // LOGIKA EKSTRAKSI URL DINAMIS:
                         if (k.toUpperCase() === 'LINK') {
-                            // Mencari URL di dalam string
-                            const urlMatch = cellValue.match(/href=["'](https?:\/\/[^"']+)["']/);
+                            // Menggunakan regex untuk mengambil URL dari dalam href="..."
+                            // Regex ini menangkap string antara href=" dan tanda kutip berikutnya
+                            const urlMatch = cellValue.match(/href\s*=\s*["']([^"']+)["']/i);
                             const url = urlMatch ? urlMatch[1] : '#';
                             
                             return `<td class="p-3 text-[11px] whitespace-nowrap">
-                                <a href="${url}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm transition-colors">
-                                    Link Assignment
+                                <a href="${url}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm transition-colors cursor-pointer">
+                                    Buka Kuesioner
                                 </a>
                             </td>`;
                         }
