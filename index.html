@@ -197,17 +197,18 @@
             tbody.innerHTML = pageData.map(row => {
                 return `<tr class="hover:bg-slate-50 transition-colors">
                     ${keys.map(k => {
-                        const cellValue = row[k] || '-';
-                        
-                        // LOGIKA TOMBOL LINK: 
-                        // Mengecek apakah kolom bernama "LINK" dan nilainya mengandung tag HTML <a>
-                        if (k.toUpperCase() === 'LINK' && cellValue.includes('<a href=')) {
-                            // Membersihkan string agar bisa dirender sebagai link aktif
-                            const cleanLink = cellValue.replace(/target\s*=\s*['"]_blank['"]/i, 'target="_blank"');
+                        let cellValue = row[k] || '-';
+
+                        // LOGIKA BARU: Jika kolom adalah 'LINK', kita paksa ekstrak URL dari teks
+                        if (k.toUpperCase() === 'LINK') {
+                            // Mencari URL di dalam string
+                            const urlMatch = cellValue.match(/href=["'](https?:\/\/[^"']+)["']/);
+                            const url = urlMatch ? urlMatch[1] : '#';
+                            
                             return `<td class="p-3 text-[11px] whitespace-nowrap">
-                                <div class="inline-block [&>a]:bg-blue-600 [&>a]:text-white [&>a]:px-3 [&>a]:py-1.5 [&>a]:rounded-lg [&>a]:text-[10px] [&>a]:font-bold [&>a]:shadow-sm [&>a]:hover:bg-blue-700 [&>a]:transition-colors">
-                                    ${cleanLink}
-                                </div>
+                                <a href="${url}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow-sm transition-colors">
+                                    Link Assignment
+                                </a>
                             </td>`;
                         }
                         
@@ -223,7 +224,6 @@
                 <button onclick="changePage(1)" class="px-3 py-1 bg-white border rounded">Next</button>
             `;
         }
-
         function changePage(dir) {
             const maxPage = Math.ceil(filteredData.length / rowsPerPage);
             currentPage = Math.max(1, Math.min(currentPage + dir, maxPage));
