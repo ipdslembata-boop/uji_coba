@@ -75,13 +75,10 @@
     </div>
 
     <script>
-        // Konfigurasi Kategori berisi daftar sheet beserta URL CSV-nya masing-masing (berdasarkan GID)
         const CONFIG = {
             'sosek': {
                 'AAK1': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPCPkjfv9nGufuWbhqmGOcN2B5lz1dEtW4zEWqA_LEAB2lajcQuS92jwmLNkuU7MBT73ZUNcShE436/pub?output=csv',
                 'AAK2': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQPCPkjfv9nGufuWbhqmGOcN2B5lz1dEtW4zEWqA_LEAB2lajcQuS92jwmLNkuU7MBT73ZUNcShE436/pub?gid=40991038&output=csv',
-                // Tambahkan sheet lainnya di sini jika ada:
-                // 'AKK3': 'URL_CSV_SHEET_BERIKUTNYA'
             },
             'umum': {},
             'neraca': {},
@@ -113,7 +110,6 @@
                 return;
             }
 
-            // Buat tombol tab untuk setiap sheet secara dinamis
             sheetKeys.forEach((sheetName, index) => {
                 const btn = document.createElement('button');
                 btn.textContent = sheetName;
@@ -126,7 +122,6 @@
                 tabsContainer.appendChild(btn);
             });
 
-            // Muat sheet pertama secara default
             loadSheetData(sheets[sheetKeys[0]], sheetKeys[0]);
         }
 
@@ -195,10 +190,11 @@
                 return;
             }
 
-            const keys = Object.keys(filteredData[0]).slice(0, 10);
-            document.getElementById('tableHeader').innerHTML = `<tr>${keys.map(k => `<th class="p-3 uppercase text-[11px]">${k.replace(/_/g, ' ')}</th>`).join('')}</tr>`;
+            // Menampilkan SELURUH kolom (tanpa slice) dan menambahkan whitespace-nowrap
+            const keys = Object.keys(filteredData[0]);
+            document.getElementById('tableHeader').innerHTML = `<tr>${keys.map(k => `<th class="p-3 uppercase text-[11px] whitespace-nowrap">${k.replace(/_/g, ' ')}</th>`).join('')}</tr>`;
             
-            tbody.innerHTML = pageData.map(row => `<tr class="hover:bg-slate-50 transition-colors">${keys.map(k => `<td class="p-3 truncate max-w-xs">${row[k] || '-'}</td>`).join('')}</tr>`).join('');
+            tbody.innerHTML = pageData.map(row => `<tr class="hover:bg-slate-50 transition-colors">${keys.map(k => `<td class="p-3 text-[11px] whitespace-nowrap">${row[k] || '-'}</td>`).join('')}</tr>`).join('');
             
             const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
             document.getElementById('pagination').innerHTML = `
@@ -285,7 +281,6 @@
             a.click();
         }
 
-        // Jalankan saat pertama kali dibuka
         initCategory('sosek');
     </script>
 </body>
