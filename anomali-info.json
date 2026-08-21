@@ -181,6 +181,81 @@
       "tingkat_keparahan": "kritis",
       "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 12",
       "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_9": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "memiliki produk sendiri berupa kain tenun, namun memiliki kode kbli 13122",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_10": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "memiliki produk sendiri dengan kata kunci menjahit, namun memiliki kode kbli dengan 2 digit pertama adalah 14",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_11": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 15",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_12": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 17",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_13": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 19",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_14": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 20",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_15": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 21",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_16": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 22",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_17": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 23",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_18": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 24",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_19": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 25",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_20": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 27",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_21": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 28",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_22": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 29",
+      "solusi_perbaikan": "konfirmasi"
+    },
+    "Neraca_23": {
+      "tingkat_keparahan": "kritis",
+      "penjelasan_detail": "Memiliki kode kbli dengan 2 digit pertama adalah 30",
+      "solusi_perbaikan": "konfirmasi"
     }
   }
 }
